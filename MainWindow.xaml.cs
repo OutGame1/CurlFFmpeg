@@ -1,4 +1,6 @@
 ﻿using CurlFFmpeg.ViewModels;
+using CurlFFmpeg.Views;
+using System.Windows;
 using Wpf.Ui;
 using Wpf.Ui.Abstractions;
 using Wpf.Ui.Controls;
@@ -18,5 +20,13 @@ public partial class MainWindow : FluentWindow
         NavigationControl.SetPageProviderService(pageProvider);
 
         dialogService.SetDialogHost(RootContentDialogHost);
+
+        void NavigateToAddDownload(object sender, RoutedEventArgs e)
+        {
+            NavigationControl.Navigate(typeof(AddDownloadView));
+            Loaded -= NavigateToAddDownload;
+        }
+
+        Loaded += NavigateToAddDownload;
     }
 }

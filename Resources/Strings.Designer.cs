@@ -187,6 +187,15 @@ namespace CurlFFmpeg.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Retrouvez et gérez vos téléchargements..
+        /// </summary>
+        internal static string DownloadsDescription {
+            get {
+                return ResourceManager.GetString("DownloadsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Terminé.
         /// </summary>
         internal static string DownloadStatusCompleted {
@@ -241,20 +250,11 @@ namespace CurlFFmpeg.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fichier de sortie.
+        ///   Looks up a localized string similar to Chemin de sortie.
         /// </summary>
-        internal static string OutputFile {
+        internal static string OutputPath {
             get {
-                return ResourceManager.GetString("OutputFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Format de sortie.
-        /// </summary>
-        internal static string OutputFormat {
-            get {
-                return ResourceManager.GetString("OutputFormat", resourceCulture);
+                return ResourceManager.GetString("OutputPath", resourceCulture);
             }
         }
         

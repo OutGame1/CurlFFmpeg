@@ -36,7 +36,6 @@
 
             <StackPanel>
 
-                <!-- cURL command -->
                 <!-- Playlist URL -->
                 <TextBlock Text="{local:Translate PlaylistUrl}"
                            Foreground="White"
@@ -48,8 +47,8 @@
                          Padding="10,6"
                          Margin="0,0,0,20" />
 
-                <!-- Output file -->
-                <TextBlock Text="{local:Translate OutputFile}"
+                <!-- Output path -->
+                <TextBlock Text="{local:Translate OutputPath}"
                            Foreground="White"
                            FontWeight="SemiBold"
                            Margin="0,0,0,8" />
@@ -61,41 +60,23 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBox Grid.Column="0"
-                             Text="{Binding OutputFile, UpdateSourceTrigger=PropertyChanged}"
+                             Text="{Binding OutputPath, UpdateSourceTrigger=PropertyChanged}"
                              Height="36"
                              Padding="10,6"
                              Margin="0,0,10,0" />
 
                     <Button Grid.Column="1"
                             Content="{local:Translate Browse}"
+                            Click="BrowseOutputFile"
                             Height="36"
                             Padding="16,0" />
                 </Grid>
 
-                <!-- Format and action -->
+                <!-- Action -->
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <StackPanel Grid.Column="0">
-                        <TextBlock Text="{local:Translate OutputFormat}"
-                                   Foreground="White"
-                                   FontWeight="SemiBold"
-                                   Margin="0,0,0,8" />
-
-                        <ComboBox ItemsSource="{Binding AvailableFormats}"
-                                  SelectedItem="{Binding Format, Mode=TwoWay}"
-                                  Height="36"
-                                  MinWidth="180" />
-                    </StackPanel>
-
-                    <Button Grid.Column="2"
-                            Content="{local:Translate AddToQueue}"
+                    <Button Content="{local:Translate AddToQueue}"
                             Command="{Binding AddDownloadCommand}"
-                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Right"
                             Height="36"
                             Padding="24,0"
                             MinWidth="180" />

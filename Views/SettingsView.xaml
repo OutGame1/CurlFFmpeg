@@ -34,7 +34,7 @@
                     CornerRadius="8"
                     Padding="20"
                     MaxWidth="650"
-                    HorizontalAlignment="Stretch">
+                    HorizontalAlignment="Left">
 
                 <Grid>
                     <Grid.ColumnDefinitions>

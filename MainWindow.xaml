@@ -33,13 +33,13 @@
 
             <ui:NavigationView.MenuItems>
 
-                <ui:NavigationViewItem Content="{local:Translate Downloads}"
-                                       Icon="{ui:SymbolIcon ArrowDownload24}"
-                                       TargetPageType="{x:Type views:DownloadsView}" />
-
                 <ui:NavigationViewItem Content="{local:Translate Add}"
                                        Icon="{ui:SymbolIcon AddCircle24}"
                                        TargetPageType="{x:Type views:AddDownloadView}" />
+
+                <ui:NavigationViewItem Content="{local:Translate Downloads}"
+                                       Icon="{ui:SymbolIcon ArrowDownload24}"
+                                       TargetPageType="{x:Type views:DownloadsView}" />
 
             </ui:NavigationView.MenuItems>
 

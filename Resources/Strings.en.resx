@@ -177,11 +177,8 @@
   <data name="General" xml:space="preserve">
     <value>General</value>
   </data>
-  <data name="OutputFile" xml:space="preserve">
-    <value>Output file</value>
-  </data>
-  <data name="OutputFormat" xml:space="preserve">
-    <value>Output format</value>
+  <data name="OutputPath" xml:space="preserve">
+    <value>Output path</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
@@ -191,5 +188,8 @@
   </data>
   <data name="PlaylistUrl" xml:space="preserve">
     <value>M3U8 playlist URL</value>
+  </data>
+  <data name="DownloadsDescription" xml:space="preserve">
+    <value>Find and manage your downloads.</value>
   </data>
 </root>

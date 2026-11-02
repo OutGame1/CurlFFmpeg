@@ -60,7 +60,7 @@
                        FontWeight="SemiBold"
                        Foreground="{StaticResource PrimaryTextBrush}" />
 
-            <TextBlock Text="ATRADUIRE - Retrouvez et gérez vos téléchargements."
+            <TextBlock Text="{local:Translate DownloadsDescription}"
                        FontSize="14"
                        Foreground="{StaticResource SecondaryTextBrush}"
                        Margin="0,6,0,0" />
