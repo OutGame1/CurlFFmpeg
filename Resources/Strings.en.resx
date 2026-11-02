@@ -124,7 +124,7 @@
     <value>Add a download</value>
   </data>
   <data name="AddDownloadDescription" xml:space="preserve">
-    <value>Paste a cURL command to configure the download.</value>
+    <value>Paste the URL of the M3U8 playlist to download.</value>
   </data>
   <data name="AddToQueue" xml:space="preserve">
     <value>Add to queue</value>
@@ -189,7 +189,7 @@
   <data name="SettingsDescription" xml:space="preserve">
     <value>Customize the application behavior.</value>
   </data>
-  <data name="CurlCommand" xml:space="preserve">
-    <value>cURL command</value>
+  <data name="PlaylistUrl" xml:space="preserve">
+    <value>M3U8 playlist URL</value>
   </data>
 </root>

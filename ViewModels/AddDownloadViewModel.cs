@@ -11,7 +11,7 @@ public sealed partial class AddDownloadViewModel(IDownloadService downloadServic
     private readonly IDownloadService downloadService = downloadService;
 
     [ObservableProperty]
-    public partial string CurlCommand { get; set; } = string.Empty;
+    public partial string PlaylistUrl { get; set; } = string.Empty;
 
     [ObservableProperty]
     public partial string OutputFile { get; set; } = string.Empty;
@@ -30,7 +30,7 @@ public sealed partial class AddDownloadViewModel(IDownloadService downloadServic
     {
         DownloadItem item = new()
         {
-            Url = CurlCommand,
+            Url = PlaylistUrl,
             OutputPath = OutputFile,
             Format = Format,
             Status = DownloadStatus.Pending

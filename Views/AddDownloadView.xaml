@@ -37,23 +37,15 @@
             <StackPanel>
 
                 <!-- cURL command -->
-                <TextBlock Text="{local:Translate CurlCommand}"
+                <!-- Playlist URL -->
+                <TextBlock Text="{local:Translate PlaylistUrl}"
                            Foreground="White"
                            FontWeight="SemiBold"
                            Margin="0,0,0,8" />
 
-                <TextBox Text="{Binding CurlCommand, UpdateSourceTrigger=PropertyChanged}"
-                         MinHeight="180"
-                         MaxHeight="300"
-                         Padding="12"
-                         AcceptsReturn="True"
-                         AcceptsTab="True"
-                         TextWrapping="Wrap"
-                         VerticalContentAlignment="Top"
-                         VerticalScrollBarVisibility="Auto"
-                         HorizontalScrollBarVisibility="Auto"
-                         FontFamily="Consolas"
-                         FontSize="13"
+                <TextBox Text="{Binding PlaylistUrl, UpdateSourceTrigger=PropertyChanged}"
+                         Height="36"
+                         Padding="10,6"
                          Margin="0,0,0,20" />
 
                 <!-- Output file -->
