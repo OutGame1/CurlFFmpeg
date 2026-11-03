@@ -79,7 +79,7 @@ namespace FFmpegDownloader.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Collez l&apos;URL de la playlist M3U8 à télécharger..
+        ///   Looks up a localized string similar to Collez l&apos;URL de la vidéo à télécharger..
         /// </summary>
         internal static string AddDownloadDescription {
             get {
@@ -169,6 +169,15 @@ namespace FFmpegDownloader.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Le téléchargement a été ajouté à la file d’attente..
+        /// </summary>
+        internal static string DownloadAddedDescription {
+            get {
+                return ResourceManager.GetString("DownloadAddedDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Informations du téléchargement.
         /// </summary>
         internal static string DownloadInformation {
@@ -250,6 +259,15 @@ namespace FFmpegDownloader.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Veuillez saisir une URL HTTP ou HTTPS valide..
+        /// </summary>
+        internal static string InvalidUrl {
+            get {
+                return ResourceManager.GetString("InvalidUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chemin de sortie.
         /// </summary>
         internal static string OutputPath {
@@ -259,11 +277,20 @@ namespace FFmpegDownloader.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to URL de la playlist M3U8.
+        ///   Looks up a localized string similar to Veuillez choisir un emplacement pour enregistrer le fichier..
         /// </summary>
-        internal static string PlaylistUrl {
+        internal static string OutputPathRequired {
             get {
-                return ResourceManager.GetString("PlaylistUrl", resourceCulture);
+                return ResourceManager.GetString("OutputPathRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Veuillez renseigner une URL..
+        /// </summary>
+        internal static string RequiredUrl {
+            get {
+                return ResourceManager.GetString("RequiredUrl", resourceCulture);
             }
         }
         
@@ -282,6 +309,15 @@ namespace FFmpegDownloader.Resources {
         internal static string SettingsDescription {
             get {
                 return ResourceManager.GetString("SettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to URL de la vidéo.
+        /// </summary>
+        internal static string VideoUrl {
+            get {
+                return ResourceManager.GetString("VideoUrl", resourceCulture);
             }
         }
     }

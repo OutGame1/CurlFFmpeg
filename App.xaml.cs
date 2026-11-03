@@ -36,7 +36,8 @@ public partial class App : Application
 
                 // Services
                 services.AddSingleton<IDownloadService, DownloadService>()
-                        .AddSingleton<IContentDialogService, ContentDialogService>();
+                        .AddSingleton<IContentDialogService, ContentDialogService>()
+                        .AddSingleton<ISnackbarService, SnackbarService>();
 
                 // Fenêtre principale
                 services.AddSingleton<MainWindow>();

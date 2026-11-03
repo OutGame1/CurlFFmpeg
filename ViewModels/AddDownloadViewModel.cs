@@ -2,41 +2,90 @@
 using CommunityToolkit.Mvvm.Input;
 using FFmpegDownloader.Models;
 using FFmpegDownloader.Services;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
+using Wpf.Ui;
+using Wpf.Ui.Controls;
 
 namespace FFmpegDownloader.ViewModels;
 
-public sealed partial class AddDownloadViewModel(IDownloadService downloadService) : ObservableObject
+public sealed partial class AddDownloadViewModel(IDownloadService downloadService,
+                                                 ISnackbarService snackbarService) : ObservableValidator
 {
-    private readonly IDownloadService downloadService = downloadService;
+    [ObservableProperty]
+    [NotifyDataErrorInfo]
+    [CustomValidation(typeof(AddDownloadViewModel), nameof(ValidateVideoUrl))]
+    public partial string VideoUrl { get; set; } = string.Empty;
 
     [ObservableProperty]
-    public partial string PlaylistUrl { get; set; } = string.Empty;
-
-    [ObservableProperty]
+    [NotifyDataErrorInfo]
+    [CustomValidation(typeof(AddDownloadViewModel), nameof(ValidateOutputPath))]
     public partial string OutputPath { get; set; } = string.Empty;
 
     public string OutputFileName => Path.GetFileName(OutputPath);
 
+    public static ValidationResult? ValidateVideoUrl(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return new ValidationResult(App.Localization["RequiredUrl"]);
+        }
+
+        if (!Uri.TryCreate(value.Trim(), UriKind.Absolute, out Uri? uri) ||
+            (uri.Scheme != Uri.UriSchemeHttp && uri.Scheme != Uri.UriSchemeHttps) ||
+            string.IsNullOrWhiteSpace(uri.Host))
+        {
+            return new ValidationResult(App.Localization["InvalidUrl"]);
+        }
+
+        return ValidationResult.Success;
+    }
+
+    public static ValidationResult? ValidateOutputPath(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return new ValidationResult(App.Localization["OutputPathRequired"]);
+        }
+
+        return ValidationResult.Success;
+    }
+
     [RelayCommand]
     private void AddDownload()
     {
-        if (!Uri.TryCreate(PlaylistUrl, UriKind.Absolute, out Uri? uri) ||
-           (uri.Scheme != Uri.UriSchemeHttp && uri.Scheme != Uri.UriSchemeHttps) ||
-           string.IsNullOrWhiteSpace(OutputPath))
+        ValidateAllProperties();
+
+        if (HasErrors)
         {
-            // Invalid URL or output path, do not add the download
-            // TODO: Show an error message to the user
             return;
         }
 
-        DownloadItem item = new()
+        downloadService.Downloads.Add(new DownloadItem
         {
-            Url = PlaylistUrl.Trim(),
+            Url = VideoUrl.Trim(),
             FileName = OutputFileName,
             OutputPath = OutputPath
-        };
+        });
 
-        downloadService.Downloads.Add(item);
+        ShowAddedDownloadSuccessSnackbar();
+
+        ResetFields();
+    }
+
+    private void ResetFields()
+    {
+        VideoUrl = string.Empty;
+        OutputPath = string.Empty;
+        ClearErrors();
+    }
+
+    private void ShowAddedDownloadSuccessSnackbar()
+    {
+        snackbarService.Show(OutputFileName,
+                             App.Localization["DownloadAddedDescription"],
+                             ControlAppearance.Success,
+                             null,
+                             TimeSpan.FromSeconds(7));
     }
 }

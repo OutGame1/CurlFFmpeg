@@ -124,7 +124,7 @@
     <value>Add a download</value>
   </data>
   <data name="AddDownloadDescription" xml:space="preserve">
-    <value>Paste the URL of the M3U8 playlist to download.</value>
+    <value>Paste the URL of the video to download.</value>
   </data>
   <data name="AddToQueue" xml:space="preserve">
     <value>Add to queue</value>
@@ -186,10 +186,22 @@
   <data name="SettingsDescription" xml:space="preserve">
     <value>Customize the application behavior.</value>
   </data>
-  <data name="PlaylistUrl" xml:space="preserve">
-    <value>M3U8 playlist URL</value>
+  <data name="VideoUrl" xml:space="preserve">
+    <value>Video URL</value>
   </data>
   <data name="DownloadsDescription" xml:space="preserve">
     <value>Find and manage your downloads.</value>
+  </data>
+  <data name="OutputPathRequired" xml:space="preserve">
+    <value>Please choose a file destination.</value>
+  </data>
+  <data name="InvalidUrl" xml:space="preserve">
+    <value>Please enter a valid HTTP or HTTPS URL.</value>
+  </data>
+  <data name="RequiredUrl" xml:space="preserve">
+    <value>Please enter a URL.</value>
+  </data>
+  <data name="DownloadAddedDescription" xml:space="preserve">
+    <value>The download has been added to the queue.</value>
   </data>
 </root>

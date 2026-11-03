@@ -124,7 +124,7 @@
     <value>Ajouter un téléchargement</value>
   </data>
   <data name="AddDownloadDescription" xml:space="preserve">
-    <value>Collez l'URL de la playlist M3U8 à télécharger.</value>
+    <value>Collez l'URL de la vidéo à télécharger.</value>
   </data>
   <data name="AddToQueue" xml:space="preserve">
     <value>Ajouter à la file</value>
@@ -186,10 +186,22 @@
   <data name="SettingsDescription" xml:space="preserve">
     <value>Personnalisez le comportement de l'application</value>
   </data>
-  <data name="PlaylistUrl" xml:space="preserve">
-    <value>URL de la playlist M3U8</value>
+  <data name="VideoUrl" xml:space="preserve">
+    <value>URL de la vidéo</value>
   </data>
   <data name="DownloadsDescription" xml:space="preserve">
     <value>Retrouvez et gérez vos téléchargements.</value>
+  </data>
+  <data name="OutputPathRequired" xml:space="preserve">
+    <value>Veuillez choisir un emplacement pour enregistrer le fichier.</value>
+  </data>
+  <data name="InvalidUrl" xml:space="preserve">
+    <value>Veuillez saisir une URL HTTP ou HTTPS valide.</value>
+  </data>
+  <data name="RequiredUrl" xml:space="preserve">
+    <value>Veuillez renseigner une URL.</value>
+  </data>
+  <data name="DownloadAddedDescription" xml:space="preserve">
+    <value>Le téléchargement a été ajouté à la file d’attente.</value>
   </data>
 </root>

@@ -11,7 +11,8 @@ public partial class MainWindow : FluentWindow
 {
     public MainWindow(MainViewModel mainViewModel,
                       INavigationViewPageProvider pageProvider,
-                      IContentDialogService dialogService)
+                      IContentDialogService dialogService,
+                      ISnackbarService snackbarService)
     {
         InitializeComponent();
 
@@ -20,6 +21,7 @@ public partial class MainWindow : FluentWindow
         NavigationControl.SetPageProviderService(pageProvider);
 
         dialogService.SetDialogHost(RootContentDialogHost);
+        snackbarService.SetSnackbarPresenter(RootSnackbarPresenter);
 
         void NavigateToAddDownload(object sender, RoutedEventArgs e)
         {
