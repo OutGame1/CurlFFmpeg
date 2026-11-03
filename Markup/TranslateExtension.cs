@@ -2,7 +2,7 @@
 using System.Windows.Data;
 using System.Windows.Markup;
 
-namespace CurlFFmpeg.Markup;
+namespace FFmpegDownloader.Markup;
 
 [MarkupExtensionReturnType(typeof(string))]
 public sealed class TranslateExtension(string key) : MarkupExtension

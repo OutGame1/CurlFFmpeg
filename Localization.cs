@@ -1,8 +1,8 @@
-﻿using CurlFFmpeg.Resources;
+﻿using FFmpegDownloader.Resources;
 using System.ComponentModel;
 using System.Globalization;
 
-namespace CurlFFmpeg;
+namespace FFmpegDownloader;
 
 public sealed class Localization : INotifyPropertyChanged
 {

@@ -1,15 +1,15 @@
-﻿<ui:FluentWindow x:Class="CurlFFmpeg.MainWindow"
+﻿<ui:FluentWindow x:Class="FFmpegDownloader.MainWindow"
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-                 xmlns:views="clr-namespace:CurlFFmpeg.Views"
+                 xmlns:views="clr-namespace:FFmpegDownloader.Views"
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                 xmlns:vm="clr-namespace:CurlFFmpeg.ViewModels"
-                 xmlns:local="clr-namespace:CurlFFmpeg.Markup"
+                 xmlns:vm="clr-namespace:FFmpegDownloader.ViewModels"
+                 xmlns:local="clr-namespace:FFmpegDownloader.Markup"
                  mc:Ignorable="d"
                  d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
-                 Title="CurlFFmpeg"
+                 Title="FFmpegDownloader"
                  ResizeMode="CanResize"
                  WindowState="Maximized"
                  WindowStyle="SingleBorderWindow"
@@ -21,7 +21,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <ui:TitleBar Title="CurlFFmpeg"
+        <ui:TitleBar Title="FFmpegDownloader"
                      ShowMinimize="True"
                      ShowMaximize="True"
                      ShowClose="True" />

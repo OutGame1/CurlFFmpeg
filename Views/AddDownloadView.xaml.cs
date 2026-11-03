@@ -1,9 +1,9 @@
-﻿using CurlFFmpeg.ViewModels;
+﻿using FFmpegDownloader.ViewModels;
 using Microsoft.Win32;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace CurlFFmpeg.Views;
+namespace FFmpegDownloader.Views;
 
 public partial class AddDownloadView : Page
 {

@@ -1,7 +1,7 @@
-﻿using CurlFFmpeg.Models;
+﻿using FFmpegDownloader.Models;
 using System.Collections.ObjectModel;
 
-namespace CurlFFmpeg.Services;
+namespace FFmpegDownloader.Services;
 
 public sealed class DownloadService : IDownloadService
 {

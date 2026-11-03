@@ -1,10 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CurlFFmpeg.Models;
-using CurlFFmpeg.Services;
+using FFmpegDownloader.Models;
+using FFmpegDownloader.Services;
 using System.IO;
 
-namespace CurlFFmpeg.ViewModels;
+namespace FFmpegDownloader.ViewModels;
 
 public sealed partial class AddDownloadViewModel(IDownloadService downloadService) : ObservableObject
 {

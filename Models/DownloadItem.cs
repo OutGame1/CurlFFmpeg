@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CurlFFmpeg.Enums;
+using FFmpegDownloader.Enums;
 
-namespace CurlFFmpeg.Models;
+namespace FFmpegDownloader.Models;
 
 public sealed partial class DownloadItem : ObservableObject
 {

@@ -1,7 +1,7 @@
-﻿using CurlFFmpeg.ViewModels;
+﻿using FFmpegDownloader.ViewModels;
 using System.Windows.Controls;
 
-namespace CurlFFmpeg.Views;
+namespace FFmpegDownloader.Views;
 
 public partial class SettingsView : Page
 {

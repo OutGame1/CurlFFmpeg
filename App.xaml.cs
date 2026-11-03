@@ -1,13 +1,13 @@
-﻿using CurlFFmpeg.Services;
-using CurlFFmpeg.ViewModels;
-using CurlFFmpeg.Views;
+﻿using FFmpegDownloader.Services;
+using FFmpegDownloader.ViewModels;
+using FFmpegDownloader.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Windows;
 using Wpf.Ui;
 using Wpf.Ui.DependencyInjection;
 
-namespace CurlFFmpeg;
+namespace FFmpegDownloader;
 
 public partial class App : Application
 {

@@ -1,15 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CurlFFmpeg.Enums;
-using CurlFFmpeg.Models;
-using CurlFFmpeg.Services;
+using FFmpegDownloader.Enums;
+using FFmpegDownloader.Models;
+using FFmpegDownloader.Services;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 
-namespace CurlFFmpeg.ViewModels;
+namespace FFmpegDownloader.ViewModels;
 
 public sealed partial class DownloadsViewModel : ObservableObject
 {

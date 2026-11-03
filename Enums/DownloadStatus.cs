@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace CurlFFmpeg.Enums;
+namespace FFmpegDownloader.Enums;
 
 public enum DownloadStatus
 {

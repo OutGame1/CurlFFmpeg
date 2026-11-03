@@ -1,11 +1,11 @@
-﻿using CurlFFmpeg.ViewModels;
-using CurlFFmpeg.Views;
+﻿using FFmpegDownloader.ViewModels;
+using FFmpegDownloader.Views;
 using System.Windows;
 using Wpf.Ui;
 using Wpf.Ui.Abstractions;
 using Wpf.Ui.Controls;
 
-namespace CurlFFmpeg;
+namespace FFmpegDownloader;
 
 public partial class MainWindow : FluentWindow
 {
