@@ -25,9 +25,9 @@ public partial class App : Application
 
                 // ViewModels
                 services.AddSingleton<MainViewModel>()
-                        .AddTransient<DownloadsViewModel>()
-                        .AddTransient<AddDownloadViewModel>()
-                        .AddTransient<SettingsViewModel>();
+                        .AddSingleton<DownloadsViewModel>()
+                        .AddSingleton<AddDownloadViewModel>()
+                        .AddSingleton<SettingsViewModel>();
 
                 // Pages
                 services.AddTransient<DownloadsView>()
