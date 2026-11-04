@@ -1,11 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using FFmpegDownloader.Dialogs;
 using FFmpegDownloader.Enums;
 using FFmpegDownloader.Models;
 using FFmpegDownloader.Services;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Windows.Data;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 
@@ -18,11 +20,13 @@ public sealed partial class DownloadsViewModel : ObservableObject
 
     public ObservableCollection<DownloadItem> Downloads => downloadService.Downloads;
 
-    public int PendingCount => Downloads.Count(download => download.Status == DownloadStatus.Pending);
+    public DownloadItem? CurrentDownloadingItem => downloadService.CurrentDownloadingItem;
 
-    public int DownloadingCount => Downloads.Count(download => download.Status == DownloadStatus.Downloading);
+    public ICollectionView PendingDownloads { get; }
 
-    public int CompletedCount => Downloads.Count(download => download.Status == DownloadStatus.Completed);
+    public ICollectionView CompletedDownloads { get; }
+
+    public ICollectionView FailedDownloads { get; }
 
     public DownloadsViewModel(IDownloadService downloadService,
                               IContentDialogService dialogService)
@@ -30,12 +34,24 @@ public sealed partial class DownloadsViewModel : ObservableObject
         this.downloadService = downloadService;
         this.dialogService = dialogService;
 
-        Downloads.CollectionChanged += OnDownloadsCollectionChanged;
+        CollectionViewSource pendingDownloadsSource = new() { Source = Downloads };
+        CollectionViewSource completedDownloadsSource = new() { Source = Downloads };
+        CollectionViewSource failedDownloadsSource = new() { Source = Downloads };
 
-        foreach (DownloadItem download in Downloads)
-        {
-            download.PropertyChanged += OnDownloadPropertyChanged;
-        }
+        PendingDownloads = pendingDownloadsSource.View;
+        CompletedDownloads = completedDownloadsSource.View;
+        FailedDownloads = failedDownloadsSource.View;
+
+        PendingDownloads.Filter = item =>
+            item is DownloadItem download && download.Status == DownloadStatus.Pending;
+
+        CompletedDownloads.Filter = item =>
+            item is DownloadItem download && download.Status == DownloadStatus.Completed;
+
+        FailedDownloads.Filter = item =>
+            item is DownloadItem download && download.Status == DownloadStatus.Failed;
+
+        Downloads.CollectionChanged += OnDownloadsCollectionChanged;
     }
 
     private void OnDownloadsCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
@@ -56,43 +72,29 @@ public sealed partial class DownloadsViewModel : ObservableObject
             }
         }
 
-        RefreshCounters();
+        RefreshDownloadsViews();
     }
 
     private void OnDownloadPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(DownloadItem.Status))
         {
-            RefreshCounters();
+            RefreshDownloadsViews();
         }
     }
 
-    private void RefreshCounters()
+    private void RefreshDownloadsViews()
     {
-        OnPropertyChanged(nameof(PendingCount));
-        OnPropertyChanged(nameof(DownloadingCount));
-        OnPropertyChanged(nameof(CompletedCount));
-    }
-
-    private async Task<ContentDialogResult> GetRemoveConfirmationResult(DownloadItem download)
-    {
-        ContentDialog dialog = new()
-        {
-            Title = App.Localization["ConfirmDeletion"],
-            Content = $"{App.Localization["Delete"]} « {download.FileName} » ?",
-            PrimaryButtonText = App.Localization["Delete"],
-            PrimaryButtonAppearance = ControlAppearance.Danger,
-            CloseButtonText = App.Localization["Cancel"],
-            DefaultButton = ContentDialogButton.Close
-        };
-
-        return await dialogService.ShowAsync(dialog, CancellationToken.None);
+        PendingDownloads.Refresh();
+        CompletedDownloads.Refresh();
+        FailedDownloads.Refresh();
     }
 
     [RelayCommand]
     private async Task RemoveDownload(DownloadItem download)
     {
-        ContentDialogResult result = await GetRemoveConfirmationResult(download);
+        RemoveDownloadConfirmationDialog dialog = new(download.FileName);
+        ContentDialogResult result = await dialogService.ShowAsync(dialog, CancellationToken.None);
 
         if (result == ContentDialogResult.Primary)
         {
@@ -100,4 +102,22 @@ public sealed partial class DownloadsViewModel : ObservableObject
         }
     }
 
+    [RelayCommand]
+    private async Task StartQueue()
+    {
+        await downloadService.StartQueue();
+    }
+
+    [RelayCommand]
+    private async Task StopQueue()
+    {
+        bool hasActiveDownload = Downloads.Any(download => download.Status == DownloadStatus.Downloading);
+        StopQueueConfirmationDialog dialog = new(hasActiveDownload);
+        ContentDialogResult result = await dialogService.ShowAsync(dialog, CancellationToken.None);
+
+        if (result == ContentDialogResult.Primary)
+        {
+            downloadService.StopQueue(dialog.StopCurrentDownloadCheckBox.IsChecked == true);
+        }
+    }
 }

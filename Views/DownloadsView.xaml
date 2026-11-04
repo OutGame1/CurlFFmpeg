@@ -15,6 +15,7 @@
             <!-- Couleurs -->
             <SolidColorBrush x:Key="PrimaryTextBrush"
                              Color="#F5F5F5" />
+
             <SolidColorBrush x:Key="SecondaryTextBrush"
                              Color="#AFAFAF" />
 
@@ -44,164 +45,391 @@
                         Value="16,0,0,0" />
             </Style>
 
+            <!-- Carte d'un téléchargement -->
+            <DataTemplate x:Key="DownloadItemTemplate">
+                <Border Style="{StaticResource DownloadCard}">
+                    <StackPanel>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="{Binding FileName}"
+                                       FontSize="16"
+                                       FontWeight="SemiBold"
+                                       Foreground="{StaticResource PrimaryTextBrush}"
+                                       VerticalAlignment="Center" />
+
+                            <Border Grid.Column="1"
+                                    Style="{StaticResource StatusBadge}"
+                                    Background="#383838">
+                                <TextBlock Text="{Binding StatusMessage}"
+                                           Foreground="#D0D0D0"
+                                           FontSize="12"
+                                           FontWeight="SemiBold" />
+                            </Border>
+                        </Grid>
+
+                        <TextBlock Text="{Binding Url}"
+                                   Foreground="{StaticResource SecondaryTextBrush}"
+                                   Margin="0,8,0,12"
+                                   TextTrimming="CharacterEllipsis" />
+
+                        <ProgressBar Value="{Binding Progress}"
+                                     Maximum="100"
+                                     Height="6" />
+
+                        <TextBlock Text="{Binding Progress, StringFormat={}{0:F0} %}"
+                                   Foreground="{StaticResource SecondaryTextBrush}"
+                                   Margin="0,8,0,0" />
+
+                        <Button Content="{local:Translate Delete}"
+                                HorizontalAlignment="Right"
+                                Margin="0,12,0,0"
+                                Command="{Binding DataContext.RemoveDownloadCommand,
+                                    RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                CommandParameter="{Binding}" />
+
+                    </StackPanel>
+                </Border>
+            </DataTemplate>
+
+            <!-- Accordéon -->
+            <Style x:Key="DownloadSection"
+                   TargetType="Expander">
+                <Setter Property="IsExpanded"
+                        Value="True" />
+                <Setter Property="Margin"
+                        Value="0,0,0,14" />
+                <Setter Property="Foreground"
+                        Value="{StaticResource PrimaryTextBrush}" />
+                <Setter Property="Background"
+                        Value="#202124" />
+                <Setter Property="BorderBrush"
+                        Value="#35373B" />
+                <Setter Property="BorderThickness"
+                        Value="1" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Expander">
+                            <Border x:Name="Card"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="12"
+                                    SnapsToDevicePixels="True">
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <!-- En-tête -->
+                                    <ToggleButton x:Name="HeaderSite"
+                                                  Grid.Row="0"
+                                                  IsChecked="{Binding IsExpanded,
+                                          RelativeSource={RelativeSource TemplatedParent}}"
+                                                  Focusable="False"
+                                                  Background="Transparent"
+                                                  BorderThickness="0"
+                                                  Padding="18,16"
+                                                  HorizontalContentAlignment="Stretch"
+                                                  Cursor="Hand">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <ContentPresenter ContentSource="Header"
+                                                              VerticalAlignment="Center"
+                                                              RecognizesAccessKey="True" />
+
+                                            <!-- Badge de compteur -->
+                                            <Border x:Name="CountBadge"
+                                                    Grid.Column="1"
+                                                    Background="#34373D"
+                                                    CornerRadius="10"
+                                                    Padding="10,4"
+                                                    Margin="12,0,16,0"
+                                                    VerticalAlignment="Center">
+                                                <ContentPresenter Content="{Binding Tag,
+                                        RelativeSource={RelativeSource TemplatedParent}}"
+                                                                  TextBlock.Foreground="#D7DADF"
+                                                                  TextBlock.FontSize="12"
+                                                                  TextBlock.FontWeight="SemiBold" />
+                                            </Border>
+
+                                            <!-- Chevron -->
+                                            <Path x:Name="Chevron"
+                                                  Grid.Column="2"
+                                                  Data="M 0 0 L 5 5 L 10 0"
+                                                  Stroke="#AEB4BE"
+                                                  StrokeThickness="1.8"
+                                                  StrokeStartLineCap="Round"
+                                                  StrokeEndLineCap="Round"
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  RenderTransformOrigin="0.5,0.5">
+                                                <Path.RenderTransform>
+                                                    <RotateTransform Angle="0" />
+                                                </Path.RenderTransform>
+                                            </Path>
+                                        </Grid>
+                                    </ToggleButton>
+
+                                    <!-- Contenu -->
+                                    <Border x:Name="ContentSite"
+                                            Grid.Row="1"
+                                            Padding="18,0,18,12"
+                                            Visibility="Collapsed">
+                                        <ContentPresenter ContentSource="Content"
+                                                          RecognizesAccessKey="True" />
+                                    </Border>
+                                </Grid>
+                            </Border>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsExpanded"
+                                         Value="True">
+                                    <Setter TargetName="ContentSite"
+                                            Property="Visibility"
+                                            Value="Visible" />
+                                    <Setter TargetName="Chevron"
+                                            Property="RenderTransform">
+                                        <Setter.Value>
+                                            <RotateTransform Angle="180" />
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter TargetName="Card"
+                                            Property="BorderBrush"
+                                            Value="#4B515B" />
+                                </Trigger>
+
+                                <Trigger SourceName="HeaderSite"
+                                         Property="IsMouseOver"
+                                         Value="True">
+                                    <Setter TargetName="HeaderSite"
+                                            Property="Background"
+                                            Value="#292C31" />
+                                </Trigger>
+
+                                <Trigger SourceName="HeaderSite"
+                                         Property="IsPressed"
+                                         Value="True">
+                                    <Setter TargetName="HeaderSite"
+                                            Property="Background"
+                                            Value="#30343A" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- Titre -->
+            <Style x:Key="SectionTitle"
+                   TargetType="TextBlock">
+                <Setter Property="FontSize"
+                        Value="16" />
+                <Setter Property="FontWeight"
+                        Value="SemiBold" />
+                <Setter Property="Foreground"
+                        Value="{StaticResource PrimaryTextBrush}" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+            </Style>
+
+            <!-- Style des messages de section vide -->
+            <Style x:Key="EmptySectionMessage"
+                   TargetType="TextBlock">
+                <Setter Property="Foreground"
+                        Value="{StaticResource SecondaryTextBrush}" />
+                <Setter Property="Margin"
+                        Value="0,8,0,12" />
+                <Setter Property="Visibility"
+                        Value="Collapsed" />
+            </Style>
+
         </Grid.Resources>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
 
-        <!-- En-tête -->
-        <StackPanel Grid.Row="0">
-
-            <TextBlock Text="{local:Translate Downloads}"
-                       FontSize="30"
-                       FontWeight="SemiBold"
-                       Foreground="{StaticResource PrimaryTextBrush}" />
-
-            <TextBlock Text="{local:Translate DownloadsDescription}"
-                       FontSize="14"
-                       Foreground="{StaticResource SecondaryTextBrush}"
-                       Margin="0,6,0,0" />
-
-        </StackPanel>
-
-        <!-- Résumé -->
-        <UniformGrid Grid.Row="1"
-                     Columns="3"
-                     Margin="0,28,0,24">
-
-            <Border Background="#252525"
-                    CornerRadius="8"
-                    Padding="18"
-                    Margin="0,0,12,0">
-
+                <!-- En-tête -->
                 <StackPanel>
-                    <TextBlock Text="{local:Translate DownloadStatusPending}"
-                               Foreground="{StaticResource SecondaryTextBrush}" />
-
-                    <TextBlock Text="{Binding PendingCount}"
-                               FontSize="26"
+                    <TextBlock Text="{local:Translate Downloads}"
+                               FontSize="30"
                                FontWeight="SemiBold"
-                               Foreground="{StaticResource PrimaryTextBrush}"
-                               Margin="0,5,0,0" />
+                               Foreground="{StaticResource PrimaryTextBrush}" />
+
+                    <TextBlock Text="{local:Translate DownloadsDescription}"
+                               FontSize="14"
+                               Foreground="{StaticResource SecondaryTextBrush}"
+                               Margin="0,6,0,0" />
                 </StackPanel>
 
-            </Border>
+                <!-- Contrôles de la file d'attente -->
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,24,0,24">
 
-            <Border Background="#252525"
-                    CornerRadius="8"
-                    Padding="18"
-                    Margin="6,0">
+                    <Button Content="Lancer la file d'attente"
+                            Command="{Binding StartQueueCommand}"
+                            Margin="0,0,12,0"
+                            Padding="16,8" />
 
-                <StackPanel>
-                    <TextBlock Text="{local:Translate DownloadStatusDownloading}"
-                               Foreground="{StaticResource SecondaryTextBrush}" />
+                    <Button Content="Stopper la file d'attente"
+                            Command="{Binding StopQueueCommand}"
+                            Padding="16,8" />
 
-                    <TextBlock Text="{Binding DownloadingCount}"
-                               FontSize="26"
-                               FontWeight="SemiBold"
-                               Foreground="{StaticResource PrimaryTextBrush}"
-                               Margin="0,5,0,0" />
                 </StackPanel>
 
-            </Border>
+                <!-- Téléchargement en cours -->
+                <Border Background="#303030"
+                        BorderBrush="#0078D4"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Padding="20"
+                        Margin="0,0,0,12">
 
-            <Border Background="#252525"
-                    CornerRadius="8"
-                    Padding="18"
-                    Margin="12,0,0,0">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Visibility"
+                                    Value="Visible" />
 
-                <StackPanel>
-                    <TextBlock Text="{local:Translate DownloadStatusCompleted}"
-                               Foreground="{StaticResource SecondaryTextBrush}" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding CurrentDownloadingItem}"
+                                             Value="{x:Null}">
+                                    <Setter Property="Visibility"
+                                            Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
 
-                    <TextBlock Text="{Binding CompletedCount}"
-                               FontSize="26"
-                               FontWeight="SemiBold"
-                               Foreground="{StaticResource PrimaryTextBrush}"
-                               Margin="0,5,0,0" />
-                </StackPanel>
+                    <StackPanel>
 
-            </Border>
+                        <TextBlock Text="{local:Translate DownloadStatusDownloading}"
+                                   FontSize="20"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource PrimaryTextBrush}"
+                                   Margin="0,0,0,12" />
 
-        </UniformGrid>
+                        <TextBlock Text="{Binding CurrentDownloadingItem.FileName}"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource PrimaryTextBrush}" />
 
-        <!-- Liste dynamique -->
-        <ItemsControl Grid.Row="2"
-                      ItemsSource="{Binding Downloads}">
+                        <TextBlock Text="{Binding CurrentDownloadingItem.Url}"
+                                   Foreground="{StaticResource SecondaryTextBrush}"
+                                   Margin="0,8,0,12"
+                                   TextTrimming="CharacterEllipsis" />
 
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
+                        <ProgressBar Value="{Binding CurrentDownloadingItem.Progress}"
+                                     Maximum="100"
+                                     Height="8" />
 
-                    <Border Style="{StaticResource DownloadCard}">
+                        <TextBlock Text="{Binding CurrentDownloadingItem.Progress, StringFormat={}{0:F0} %}"
+                                   Foreground="{StaticResource SecondaryTextBrush}"
+                                   Margin="0,8,0,0" />
 
-                        <StackPanel>
+                    </StackPanel>
+                </Border>
 
-                            <!-- Nom et statut -->
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-
-                                <TextBlock Grid.Column="0"
-                                           Text="{Binding FileName}"
-                                           FontSize="16"
-                                           FontWeight="SemiBold"
-                                           Foreground="{StaticResource PrimaryTextBrush}"
-                                           VerticalAlignment="Center" />
-
-                                <Border Grid.Column="1"
-                                        Style="{StaticResource StatusBadge}"
-                                        Background="#383838">
-
-                                    <TextBlock Text="{Binding StatusMessage}"
-                                               Foreground="#D0D0D0"
-                                               FontSize="12"
-                                               FontWeight="SemiBold" />
-
-                                </Border>
-                            </Grid>
-
-                            <!-- URL -->
-                            <TextBlock Text="{Binding Url}"
-                                       Foreground="{StaticResource SecondaryTextBrush}"
-                                       Margin="0,8,0,12"
-                                       TextTrimming="CharacterEllipsis" />
-
-                            <!-- Progression -->
-                            <ProgressBar Value="{Binding Progress}"
-                                         Maximum="100"
-                                         Height="6" />
-
-                            <!-- Informations de progression -->
-                            <DockPanel Margin="0,8,0,0">
-
-                                <TextBlock Text="{Binding Progress, StringFormat={}{0:F0} %}"
-                                           Foreground="{StaticResource SecondaryTextBrush}" />
-
-                            </DockPanel>
-
-                            <Grid Margin="0,12,0,0">
-                                <Button Content="{local:Translate Delete}"
-                                        HorizontalAlignment="Right"
-                                        Command="{Binding DataContext.RemoveDownloadCommand,
-                                          RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
-                                        CommandParameter="{Binding}" />
-                            </Grid>
-
+                <!-- En attente -->
+                <Expander Style="{StaticResource DownloadSection}"
+                          Tag="{Binding PendingDownloads.Count}">
+                    <Expander.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{local:Translate DownloadStatusPending}"
+                                       Style="{StaticResource SectionTitle}" />
                         </StackPanel>
+                    </Expander.Header>
 
-                    </Border>
+                    <StackPanel>
+                        <TextBlock Text="{local:Translate NoPendingDownloads}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock"
+                                       BasedOn="{StaticResource EmptySectionMessage}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding PendingDownloads.Count}"
+                                                     Value="0">
+                                            <Setter Property="Visibility"
+                                                    Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
 
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
+                        <ItemsControl ItemsSource="{Binding PendingDownloads}"
+                                      ItemTemplate="{StaticResource DownloadItemTemplate}" />
+                    </StackPanel>
+                </Expander>
 
-        </ItemsControl>
+                <!-- Terminés -->
+                <Expander Style="{StaticResource DownloadSection}"
+                          Tag="{Binding CompletedDownloads.Count}">
+                    <Expander.Header>
+                        <TextBlock Text="Terminés"
+                                   Style="{StaticResource SectionTitle}" />
+                    </Expander.Header>
 
+                    <StackPanel>
+                        <TextBlock Text="{local:Translate NoCompletedDownloads}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock"
+                                       BasedOn="{StaticResource EmptySectionMessage}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding CompletedDownloads.Count}"
+                                                     Value="0">
+                                            <Setter Property="Visibility"
+                                                    Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+
+                        <ItemsControl ItemsSource="{Binding CompletedDownloads}"
+                                      ItemTemplate="{StaticResource DownloadItemTemplate}" />
+                    </StackPanel>
+                </Expander>
+
+                <!-- En erreur -->
+                <Expander Style="{StaticResource DownloadSection}"
+                          Tag="{Binding FailedDownloads.Count}">
+                    <Expander.Header>
+                        <TextBlock Text="En erreur"
+                                   Style="{StaticResource SectionTitle}" />
+                    </Expander.Header>
+
+                    <StackPanel>
+                        <TextBlock Text="{local:Translate NoFailedDownloads}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock"
+                                       BasedOn="{StaticResource EmptySectionMessage}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding FailedDownloads.Count}"
+                                                     Value="0">
+                                            <Setter Property="Visibility"
+                                                    Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+
+                        <ItemsControl ItemsSource="{Binding FailedDownloads}"
+                                      ItemTemplate="{StaticResource DownloadItemTemplate}" />
+                    </StackPanel>
+                </Expander>
+
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
-
 </Page>

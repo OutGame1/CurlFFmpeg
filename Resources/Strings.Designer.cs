@@ -313,6 +313,15 @@ namespace FFmpegDownloader.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arrêter.
+        /// </summary>
+        internal static string Stop {
+            get {
+                return ResourceManager.GetString("Stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to URL de la vidéo.
         /// </summary>
         internal static string VideoUrl {

@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using FFmpegDownloader.Models;
 using FFmpegDownloader.Services;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
@@ -61,12 +60,9 @@ public sealed partial class AddDownloadViewModel(IDownloadService downloadServic
             return;
         }
 
-        downloadService.Downloads.Add(new DownloadItem
-        {
-            Url = VideoUrl.Trim(),
-            FileName = OutputFileName,
-            OutputPath = OutputPath
-        });
+        downloadService.AddDownload(VideoUrl.Trim(),
+                                    OutputFileName,
+                                    OutputPath);
 
         ShowAddedDownloadSuccessSnackbar();
 
