@@ -11,7 +11,7 @@ public sealed class StopQueueConfirmationDialog : ContentDialog
     public StopQueueConfirmationDialog(bool isStopCurrentDownloadCheckboxVisible)
     {
         SetResourceReference(StyleProperty, typeof(ContentDialog));
-        Title = "ATRADUIRE:Arrêter la file d'attente";
+        Title = App.Localization["StopQueue"];
         PrimaryButtonText = App.Localization["Stop"];
         PrimaryButtonAppearance = ControlAppearance.Danger;
         CloseButtonText = App.Localization["Cancel"];
@@ -19,7 +19,7 @@ public sealed class StopQueueConfirmationDialog : ContentDialog
 
         StopCurrentDownloadCheckBox = new CheckBox
         {
-            Content = "ATRADUIRE:Arrêter également le téléchargement actuel",
+            Content = App.Localization["StopCurrentDownloadConfirmation"],
             Margin = new Thickness(0, 16, 0, 0),
             Visibility = isStopCurrentDownloadCheckboxVisible ? Visibility.Visible : Visibility.Collapsed
         };
@@ -30,7 +30,7 @@ public sealed class StopQueueConfirmationDialog : ContentDialog
             {
                 new Wpf.Ui.Controls.TextBlock
                 {
-                    Text = "ATRADUIRE:Souhaitez-vous vraiment arrêter la file d'attente ?",
+                    Text = App.Localization["StopQueueConfirmationMessage"],
                     TextWrapping = TextWrapping.Wrap
                 },
                 StopCurrentDownloadCheckBox

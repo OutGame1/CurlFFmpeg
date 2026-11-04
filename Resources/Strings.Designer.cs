@@ -250,6 +250,24 @@ namespace FFmpegDownloader.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aucun téléchargement.
+        /// </summary>
+        internal static string EmptyDownload {
+            get {
+                return ResourceManager.GetString("EmptyDownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Les téléchargements ajoutés apparaîtront ici..
+        /// </summary>
+        internal static string EmptyDownloadsDescription {
+            get {
+                return ResourceManager.GetString("EmptyDownloadsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Général.
         /// </summary>
         internal static string General {
@@ -313,11 +331,47 @@ namespace FFmpegDownloader.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lancer la file d&apos;attente.
+        /// </summary>
+        internal static string StartQueue {
+            get {
+                return ResourceManager.GetString("StartQueue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arrêter.
         /// </summary>
         internal static string Stop {
             get {
                 return ResourceManager.GetString("Stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arrêter également le téléchargement actuel.
+        /// </summary>
+        internal static string StopCurrentDownloadConfirmation {
+            get {
+                return ResourceManager.GetString("StopCurrentDownloadConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arrêter la file d&apos;attente.
+        /// </summary>
+        internal static string StopQueue {
+            get {
+                return ResourceManager.GetString("StopQueue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Souhaitez-vous vraiment arrêter la file d&apos;attente ?.
+        /// </summary>
+        internal static string StopQueueConfirmationMessage {
+            get {
+                return ResourceManager.GetString("StopQueueConfirmationMessage", resourceCulture);
             }
         }
         

@@ -8,12 +8,9 @@ namespace FFmpegDownloader.Services;
 public sealed partial class DownloadService : ObservableObject, IDownloadService
 {
     private CancellationTokenSource? currentDownloadCancellationTokenSource;
-    private bool isQueueRunning;
+    public bool IsQueueRunning { get; private set; }
 
     public ObservableCollection<DownloadItem> Downloads { get; } = [];
-
-    [ObservableProperty]
-    public partial DownloadItem? CurrentDownloadingItem { get; private set; }
 
     public void AddDownload(string url, string fileName, string outputPath)
     {
@@ -28,7 +25,7 @@ public sealed partial class DownloadService : ObservableObject, IDownloadService
     public void RemoveDownload(DownloadItem download)
     {
         // Un téléchargement en cours ne peut pas être supprimé directement.
-        if (!ReferenceEquals(CurrentDownloadingItem, download))
+        if (download.Status != DownloadStatus.Downloading)
         {
             Downloads.Remove(download);
         }
@@ -36,12 +33,12 @@ public sealed partial class DownloadService : ObservableObject, IDownloadService
 
     public async Task StartQueue()
     {
-        if (isQueueRunning)
+        if (IsQueueRunning)
         {
             return;
         }
 
-        isQueueRunning = true;
+        IsQueueRunning = true;
 
         foreach (DownloadItem download in Downloads)
         {
@@ -51,7 +48,6 @@ public sealed partial class DownloadService : ObservableObject, IDownloadService
             }
 
             download.Status = DownloadStatus.Downloading;
-            CurrentDownloadingItem = download;
 
             currentDownloadCancellationTokenSource = new CancellationTokenSource();
 
@@ -81,21 +77,20 @@ public sealed partial class DownloadService : ObservableObject, IDownloadService
             {
                 currentDownloadCancellationTokenSource.Dispose();
                 currentDownloadCancellationTokenSource = null;
-                CurrentDownloadingItem = null;
             }
         }
 
-        isQueueRunning = false;
+        IsQueueRunning = false;
     }
 
     public void StopQueue(bool stopCurrentDownload)
     {
-        if (isQueueRunning && stopCurrentDownload)
+        if (IsQueueRunning && stopCurrentDownload)
         {
             currentDownloadCancellationTokenSource?.Cancel();
         }
 
-        isQueueRunning = false;
+        IsQueueRunning = false;
     }
 
     private const int SimulationDuration = 2000;

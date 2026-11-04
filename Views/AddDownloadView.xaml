@@ -47,7 +47,7 @@
                          Height="36"
                          Padding="10,6" />
 
-                <TextBlock Text="{Binding ElementName=VideoUrlTextBox, Path=(Validation.Errors)[0].ErrorContent}"
+                <TextBlock Text="{Binding ElementName=VideoUrlTextBox, Path=(Validation.Errors).CurrentItem.ErrorContent}"
                            Foreground="#E05A5A"
                            FontSize="12"
                            Margin="0,0,0,16">
@@ -92,7 +92,7 @@
                             Padding="16,0" />
                 </Grid>
 
-                <TextBlock Text="{Binding ElementName=OutputPathTextBox, Path=(Validation.Errors)[0].ErrorContent}"
+                <TextBlock Text="{Binding ElementName=OutputPathTextBox, Path=(Validation.Errors).CurrentItem.ErrorContent}"
                            Foreground="#E05A5A"
                            FontSize="12"
                            Margin="0,0,0,16">

@@ -207,4 +207,22 @@
   <data name="Stop" xml:space="preserve">
     <value>Stop</value>
   </data>
+  <data name="StopQueue" xml:space="preserve">
+    <value>Stop the download queue</value>
+  </data>
+  <data name="StopQueueConfirmationMessage" xml:space="preserve">
+    <value>Are you sure you want to stop the download queue ?</value>
+  </data>
+  <data name="StopCurrentDownloadConfirmation" xml:space="preserve">
+    <value>Also stop the current download</value>
+  </data>
+  <data name="StartQueue" xml:space="preserve">
+    <value>Start the download queue</value>
+  </data>
+  <data name="EmptyDownload" xml:space="preserve">
+    <value>No download</value>
+  </data>
+  <data name="EmptyDownloadsDescription" xml:space="preserve">
+    <value>Added downloads will appear here.</value>
+  </data>
 </root>

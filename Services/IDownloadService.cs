@@ -8,8 +8,6 @@ public interface IDownloadService : INotifyPropertyChanged
 {
     ObservableCollection<DownloadItem> Downloads { get; }
 
-    DownloadItem? CurrentDownloadingItem { get; }
-
     void AddDownload(string url, string fileName, string outputPath);
 
     void RemoveDownload(DownloadItem download);
