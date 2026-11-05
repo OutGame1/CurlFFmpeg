@@ -252,9 +252,9 @@ namespace FFmpegDownloader.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Aucun téléchargement.
         /// </summary>
-        internal static string EmptyDownload {
+        internal static string EmptyDownloads {
             get {
-                return ResourceManager.GetString("EmptyDownload", resourceCulture);
+                return ResourceManager.GetString("EmptyDownloads", resourceCulture);
             }
         }
         
@@ -282,6 +282,24 @@ namespace FFmpegDownloader.Resources {
         internal static string InvalidUrl {
             get {
                 return ResourceManager.GetString("InvalidUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ouvrir le dossier.
+        /// </summary>
+        internal static string OpenOutputFolder {
+            get {
+                return ResourceManager.GetString("OpenOutputFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DOSSIER DE SORTIE.
+        /// </summary>
+        internal static string OutputFolder {
+            get {
+                return ResourceManager.GetString("OutputFolder", resourceCulture);
             }
         }
         

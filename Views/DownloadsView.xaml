@@ -49,26 +49,16 @@
                         Value="Center" />
             </Style>
 
-            <!-- Barre de progression : masquée par défaut -->
+            <!-- Barre de progression -->
             <Style x:Key="DownloadProgressStyle"
                    TargetType="ProgressBar">
                 <Setter Property="Height"
-                        Value="7" />
+                        Value="6" />
                 <Setter Property="Margin"
-                        Value="0,14,0,0" />
-                <Setter Property="Visibility"
-                        Value="Collapsed" />
-
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding Status}"
-                                 Value="{x:Static enums:DownloadStatus.Downloading}">
-                        <Setter Property="Visibility"
-                                Value="Visible" />
-                    </DataTrigger>
-                </Style.Triggers>
+                        Value="0,16,0,0" />
             </Style>
 
-            <!-- Pourcentage : masqué par défaut -->
+            <!-- Pourcentage -->
             <Style x:Key="DownloadProgressTextStyle"
                    TargetType="TextBlock">
                 <Setter Property="Foreground"
@@ -79,23 +69,17 @@
                         Value="Right" />
                 <Setter Property="Margin"
                         Value="0,6,0,0" />
-                <Setter Property="Visibility"
-                        Value="Collapsed" />
-
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding Status}"
-                                 Value="{x:Static enums:DownloadStatus.Downloading}">
-                        <Setter Property="Visibility"
-                                Value="Visible" />
-                    </DataTrigger>
-                </Style.Triggers>
             </Style>
 
             <!-- Carte d'un élément de la file -->
             <DataTemplate x:Key="DownloadItemTemplate">
-
                 <Border x:Name="Card"
-                        Style="{StaticResource DownloadCard}">
+                        Background="#22252B"
+                        BorderBrush="#353A43"
+                        BorderThickness="1"
+                        CornerRadius="12"
+                        Padding="18"
+                        Margin="0,0,0,12">
 
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -103,7 +87,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <!-- Indicateur coloré du statut -->
+                        <!-- Indicateur de statut -->
                         <Border x:Name="StatusIndicator"
                                 Grid.Column="0"
                                 Background="#7D8795"
@@ -116,9 +100,10 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <!-- Nom, statut et suppression -->
+                            <!-- En-tête : nom, statut et suppression -->
                             <Grid Grid.Row="0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
@@ -135,8 +120,12 @@
 
                                 <Border x:Name="StatusBadge"
                                         Grid.Column="1"
-                                        Style="{StaticResource StatusBadge}"
-                                        Margin="12,0,12,0">
+                                        Background="#343A44"
+                                        CornerRadius="8"
+                                        Padding="10,5"
+                                        Margin="12,0"
+                                        VerticalAlignment="Center">
+
                                     <TextBlock Text="{Binding StatusMessage}"
                                                FontSize="12"
                                                FontWeight="SemiBold"
@@ -150,20 +139,54 @@
                                         Padding="0"
                                         ToolTip="{local:Translate Delete}"
                                         Command="{Binding DataContext.RemoveDownloadCommand,
-                                            RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                                  RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                                         CommandParameter="{Binding}" />
                             </Grid>
 
-                            <!-- URL -->
+                            <!-- URL source -->
                             <TextBlock Grid.Row="1"
                                        Text="{Binding Url}"
                                        Foreground="{StaticResource SecondaryTextBrush}"
-                                       FontSize="13"
-                                       Margin="0,9,0,0"
-                                       TextTrimming="CharacterEllipsis" />
+                                       FontSize="12"
+                                       Margin="0,10,0,0"
+                                       TextTrimming="CharacterEllipsis"
+                                       ToolTip="{Binding Url}" />
+
+                            <!-- Dossier de sortie -->
+                            <Grid Grid.Row="2"
+                                  Margin="0,14,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock Text="{local:Translate OutputFolder}"
+                                               Foreground="{StaticResource SecondaryTextBrush}"
+                                               FontSize="11"
+                                               FontWeight="SemiBold" />
+
+                                    <TextBlock Text="{Binding OutputPath}"
+                                               Foreground="#D1D5DB"
+                                               FontSize="12"
+                                               Margin="0,3,0,0"
+                                               TextTrimming="CharacterEllipsis"
+                                               ToolTip="{Binding OutputPath}" />
+                                </StackPanel>
+
+                                <Button Grid.Column="1"
+                                        Content="{local:Translate OpenOutputFolder}"
+                                        Padding="12,7"
+                                        Margin="12,0,0,0"
+                                        VerticalAlignment="Center"
+                                        ToolTip="{local:Translate OpenOutputFolder}"
+                                        Command="{Binding DataContext.OpenOutputFolderCommand,
+                                RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                        CommandParameter="{Binding}" />
+                            </Grid>
 
                             <!-- Progression -->
-                            <StackPanel Grid.Row="2">
+                            <StackPanel Grid.Row="3">
                                 <ProgressBar Value="{Binding Progress}"
                                              Maximum="100"
                                              Style="{StaticResource DownloadProgressStyle}" />

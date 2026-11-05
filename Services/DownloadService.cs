@@ -8,7 +8,9 @@ namespace FFmpegDownloader.Services;
 public sealed partial class DownloadService : ObservableObject, IDownloadService
 {
     private CancellationTokenSource? currentDownloadCancellationTokenSource;
-    public bool IsQueueRunning { get; private set; }
+
+    [ObservableProperty]
+    public partial bool IsQueueRunning { get; private set; } = false;
 
     public ObservableCollection<DownloadItem> Downloads { get; } = [];
 

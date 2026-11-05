@@ -219,10 +219,16 @@
   <data name="StartQueue" xml:space="preserve">
     <value>Lancer la file d'attente</value>
   </data>
-  <data name="EmptyDownload" xml:space="preserve">
+  <data name="EmptyDownloads" xml:space="preserve">
     <value>Aucun téléchargement</value>
   </data>
   <data name="EmptyDownloadsDescription" xml:space="preserve">
     <value>Les téléchargements ajoutés apparaîtront ici.</value>
+  </data>
+  <data name="OutputFolder" xml:space="preserve">
+    <value>DOSSIER DE SORTIE</value>
+  </data>
+  <data name="OpenOutputFolder" xml:space="preserve">
+    <value>Ouvrir le dossier</value>
   </data>
 </root>

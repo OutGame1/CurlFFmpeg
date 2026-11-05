@@ -5,6 +5,8 @@ using FFmpegDownloader.Enums;
 using FFmpegDownloader.Models;
 using FFmpegDownloader.Services;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 
@@ -13,10 +15,9 @@ namespace FFmpegDownloader.ViewModels;
 public sealed partial class DownloadsViewModel(IDownloadService downloadService,
                                                IContentDialogService dialogService) : ObservableObject
 {
-    private readonly IDownloadService downloadService = downloadService;
-    private readonly IContentDialogService dialogService = dialogService;
-
     public ObservableCollection<DownloadItem> Downloads => downloadService.Downloads;
+
+    public bool IsQueueRunning => downloadService.IsQueueRunning;
 
     [RelayCommand]
     private async Task RemoveDownload(DownloadItem download)
@@ -46,6 +47,21 @@ public sealed partial class DownloadsViewModel(IDownloadService downloadService,
         if (result == ContentDialogResult.Primary)
         {
             downloadService.StopQueue(dialog.StopCurrentDownloadCheckBox.IsChecked == true);
+        }
+    }
+
+    [RelayCommand]
+    private static void OpenOutputFolder(DownloadItem download)
+    {
+        string? directoryPath = Path.GetDirectoryName(download.OutputPath);
+
+        if (Directory.Exists(directoryPath))
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = directoryPath,
+                UseShellExecute = true
+            });
         }
     }
 }
